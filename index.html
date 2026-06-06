@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wyatt Photography</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="photo-panel" aria-label="Outdoor photography preview">
+        <img src="assets/outdoor-booking.png" alt="Outdoor photography setup with camera, reflector, trees, and golden-hour light">
+        <div class="photo-copy">
+          <p class="eyebrow">Wyatt Photography</p>
+          <h1>Book your outdoor photo session</h1>
+          <p>Choose a package, pick your time, and reserve your outdoor shoot.</p>
+        </div>
+      </section>
+
+      <section class="booking-panel" aria-label="Wyatt Photography booking form">
+        <div class="panel-top">
+          <div class="panel-heading">
+            <p class="eyebrow">Session details</p>
+            <h2>Reserve a time</h2>
+          </div>
+
+          <nav class="view-switch" aria-label="App views">
+            <button class="view-button active" type="button" data-view="booking">Booking</button>
+            <button class="view-button" type="button" data-view="admin">Admin</button>
+          </nav>
+        </div>
+
+        <form id="bookingForm" class="app-view active" novalidate>
+          <fieldset class="package-grid">
+            <legend>Package</legend>
+
+            <label class="package-card">
+              <input type="radio" name="package" value="starter" checked>
+              <span class="card-top">
+                <span class="package-name">Selection 1</span>
+                <span class="package-price">$25</span>
+              </span>
+              <span class="package-detail">25 photos</span>
+              <span class="package-detail">1 location</span>
+            </label>
+
+            <label class="package-card">
+              <input type="radio" name="package" value="classic">
+              <span class="card-top">
+                <span class="package-name">Selection 2</span>
+                <span class="package-price">$50</span>
+              </span>
+              <span class="package-detail">50 photos</span>
+              <span class="package-detail">1 location</span>
+            </label>
+
+            <label class="package-card featured">
+              <input type="radio" name="package" value="signature">
+              <span class="card-top">
+                <span class="package-name">Selection 3</span>
+                <span class="package-price">$100</span>
+              </span>
+              <span class="package-detail">100 photos</span>
+              <span class="package-detail">2 locations</span>
+            </label>
+          </fieldset>
+
+          <div class="field-grid">
+            <label for="clientName">
+              Name
+              <input id="clientName" name="clientName" autocomplete="name" required placeholder="Your name">
+            </label>
+            <label for="clientEmail">
+              Email
+              <input id="clientEmail" name="clientEmail" type="email" autocomplete="email" required placeholder="you@example.com">
+            </label>
+            <label for="sessionDate">
+              Date
+              <input id="sessionDate" name="sessionDate" type="date" required>
+            </label>
+            <label for="sessionTime">
+              Time
+              <select id="sessionTime" name="sessionTime" required>
+                <option value="">Choose a time</option>
+                <option>9:00 AM</option>
+                <option>10:30 AM</option>
+                <option>12:00 PM</option>
+                <option>1:30 PM</option>
+                <option>3:00 PM</option>
+                <option>4:30 PM</option>
+              </select>
+            </label>
+            <label for="shootState">
+              State
+              <select id="shootState" name="shootState" required>
+                <option value="Arizona">Arizona</option>
+              </select>
+            </label>
+          </div>
+
+          <section class="state-schedule" aria-label="State availability">
+            <div>
+              <span>Arizona</span>
+              <strong>Always available</strong>
+            </div>
+          </section>
+          <p id="availabilityMessage" class="availability-message" role="status">Arizona is available year-round.</p>
+
+          <label class="wide-field" for="locationNotes">
+            Outdoor location notes
+            <textarea id="locationNotes" name="locationNotes" rows="3" placeholder="Park, trail, garden, downtown, or another outdoor location"></textarea>
+          </label>
+
+          <fieldset class="delivery-options">
+            <legend>Photo delivery</legend>
+            <label>
+              <input type="radio" name="delivery" value="USB drive shipped">
+              <span>USB drive shipped</span>
+              <strong>+$10 shipping</strong>
+            </label>
+            <label>
+              <input type="radio" name="delivery" value="Online gallery" checked>
+              <span>Online gallery</span>
+              <strong>No shipping</strong>
+            </label>
+          </fieldset>
+
+          <fieldset class="payment-options">
+            <legend>Payment</legend>
+            <label>
+              <input type="radio" name="payment" value="Apple Pay" checked>
+              <span>Apple Pay</span>
+            </label>
+            <label>
+              <input type="radio" name="payment" value="Card">
+              <span>Card</span>
+            </label>
+            <label>
+              <input type="radio" name="payment" value="Google Pay">
+              <span>Google Pay</span>
+            </label>
+          </fieldset>
+
+          <aside class="summary" aria-live="polite">
+            <div>
+              <span>Selected</span>
+              <strong id="summaryPackage">Selection 1</strong>
+            </div>
+            <div>
+              <span>Includes</span>
+              <strong id="summaryIncludes">25 photos, 1 location</strong>
+            </div>
+            <div>
+              <p class="tax-note">3% tax goes to Phoenix Children's Hospital.</p>
+              <span>Tax 3%</span>
+              <strong id="summaryTax">$0.75</strong>
+            </div>
+            <div>
+              <span>Shipping</span>
+              <strong id="summaryShipping">$0.00</strong>
+            </div>
+            <div>
+              <span>Total</span>
+              <strong id="summaryTotal">$25.75</strong>
+            </div>
+          </aside>
+
+          <p id="formMessage" class="form-message" role="status"></p>
+
+          <button class="book-button" type="submit">Book session</button>
+          <button id="donateButton" class="donate-button" type="button" aria-pressed="false">Add $5 donation</button>
+          <p id="donationMessage" class="donation-message">Optional extra donation to children's hospitals: $0.00</p>
+        </form>
+
+        <section id="adminView" class="admin-view app-view" aria-label="Admin bookings">
+          <form id="adminCodeForm" class="admin-lock">
+            <p class="eyebrow">Admin area</p>
+            <h2>Enter code</h2>
+            <label for="adminCode">
+              Admin code
+              <input id="adminCode" name="adminCode" type="password" autocomplete="off" required placeholder="Enter admin code">
+            </label>
+            <p id="adminCodeMessage" class="form-message" role="status"></p>
+            <button class="book-button" type="submit">Unlock admin</button>
+          </form>
+
+          <div id="adminContent" class="admin-content" hidden>
+            <div class="admin-head">
+              <div>
+                <p class="eyebrow">Admin area</p>
+                <h2>Bookings</h2>
+              </div>
+              <div class="admin-actions">
+                <div class="admin-total">
+                  <span>Total booked</span>
+                  <strong id="adminRevenue">$0</strong>
+                </div>
+                <button id="lockAdmin" class="secondary-button compact-button" type="button">Lock admin</button>
+              </div>
+            </div>
+
+            <div class="admin-stats" aria-label="Booking totals">
+              <div>
+                <span>Bookings</span>
+                <strong id="bookingCount">0</strong>
+              </div>
+              <div>
+                <span>Photos</span>
+                <strong id="photoCount">0</strong>
+              </div>
+              <div>
+                <span>Locations</span>
+                <strong id="locationCount">0</strong>
+              </div>
+            </div>
+
+            <section class="money-panel" aria-label="Money tracker">
+              <div class="money-head">
+                <div>
+                  <p class="eyebrow">Money</p>
+                  <h3>Money tracker</h3>
+                </div>
+              </div>
+
+              <div class="money-grid">
+                <div>
+                  <span>Waiting collection</span>
+                  <strong id="pendingMoney">$0</strong>
+                </div>
+                <div>
+                  <span>Ready for card</span>
+                  <strong id="readyMoney">$0</strong>
+                </div>
+                <div>
+                  <span>Moved to card</span>
+                  <strong id="movedMoney">$0</strong>
+                </div>
+              </div>
+
+              <form id="cardTransferForm" class="card-transfer">
+                <div class="card-fields">
+                  <label for="cardHolderName">
+                    Name on card
+                    <input id="cardHolderName" name="cardHolderName" autocomplete="cc-name" required placeholder="Name on card">
+                  </label>
+                  <label for="cardNumber">
+                    Card number
+                    <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" required minlength="12" maxlength="19" placeholder="1234 1234 1234 1234">
+                  </label>
+                  <label for="cardExpiry">
+                    Expiration
+                    <input id="cardExpiry" name="cardExpiry" inputmode="numeric" autocomplete="cc-exp" required maxlength="5" placeholder="MM/YY">
+                  </label>
+                  <label for="cardCvv">
+                    CVV
+                    <input id="cardCvv" name="cardCvv" type="password" inputmode="numeric" autocomplete="cc-csc" required minlength="3" maxlength="4" placeholder="123">
+                  </label>
+                  <label for="cardZip">
+                    ZIP
+                    <input id="cardZip" name="cardZip" inputmode="numeric" autocomplete="postal-code" required maxlength="10" placeholder="ZIP code">
+                  </label>
+                </div>
+                <button id="recordCardTransfer" class="book-button compact-button" type="submit">Record card transfer</button>
+              </form>
+              <p id="moneyMessage" class="form-message" role="status"></p>
+            </section>
+
+            <div id="emptyBookings" class="empty-bookings">
+              No bookings yet.
+            </div>
+
+            <div id="bookingList" class="booking-list"></div>
+
+            <button id="clearBookings" class="secondary-button" type="button">Clear bookings</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
